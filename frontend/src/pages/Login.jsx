@@ -34,9 +34,9 @@ export default function Login() {
         <div className="flex h-screen items-center justify-center ">
             <form onSubmit={handleSubmit} className="p-6 shadow-lg rounded-2xl bg-black w-80 ">
                 <h2 className="text-xl mb-4">Login</h2>
-                <input className="w-full mb-2 p-2 border" placeholder="Email"
+                <input type="email" autoComplete="email" className="w-full mb-2 p-2 border" placeholder="Email"
                     onChange={(e) => setForm({ ...form, email: e.target.value })} />
-                <input type="password" className="w-full mb-2 p-2 border" placeholder="Password"
+                <input type="password" autoComplete="current-password" className="w-full mb-2 p-2 border" placeholder="Password"
                     onChange={(e) => setForm({ ...form, password: e.target.value })} />
 
                 <button className="w-full bg-blue-500 text-white p-2">Login</button>
