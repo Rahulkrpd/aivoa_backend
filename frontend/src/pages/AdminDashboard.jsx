@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import API from "../api/axios";
 import toast from "react-hot-toast";
 import StarCard from "../components/StarCard";
+import { AuthContext } from "../context/AuthContext";
 
 export default function AdminDashboard() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
+    const { logout } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,6 +100,15 @@ export default function AdminDashboard() {
                             </svg>
                         </div>
                     </div>
+                    <div className="flex justify-between items-center mb-6">
+                        
+                        <button
+                            onClick={logout}
+                            className="bg-red-500 text-white px-4 py-2 rounded cursor-pointer hover:bg-red-600 transition-colors duration-200"
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </div>
 
                 {/* Stats Cards */}
@@ -114,8 +125,8 @@ export default function AdminDashboard() {
                             <div className="flex-1 mb-4">
                                 <h3
                                     className={`text-xl font-semibold leading-relaxed mb-3 transition-all duration-200 ${task.completed
-                                            ? "line-through text-gray-400"
-                                            : "text-gray-800 hover:text-gray-900"
+                                        ? "line-through text-gray-400"
+                                        : "text-gray-800 hover:text-gray-900"
                                         }`}
                                 >
                                     {task.title}
@@ -123,8 +134,8 @@ export default function AdminDashboard() {
 
                                 <div className="flex items-center justify-between mb-2">
                                     <span className={`px-3 py-1 text-xs font-medium rounded-full shadow-sm ${task.completed
-                                            ? "bg-green-100 text-green-800"
-                                            : "bg-yellow-100 text-yellow-800"
+                                        ? "bg-green-100 text-green-800"
+                                        : "bg-yellow-100 text-yellow-800"
                                         }`}>
                                         {task.completed ? '✓ Completed' : '⏳ Pending'}
                                     </span>
@@ -137,7 +148,7 @@ export default function AdminDashboard() {
 
                                 {/* User Info */}
                                 <div className="flex items-center gap-2 pt-2 border-t border-gray-100">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
+                                    <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
                                         {task.user?.email?.charAt(0)?.toUpperCase() || 'U'}
                                     </div>
                                     <div>
@@ -152,7 +163,7 @@ export default function AdminDashboard() {
                             {/* Delete Button */}
                             <button
                                 onClick={() => deleteTask(task._id)}
-                                className="w-full mt-4 px-4 py-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-sm font-medium rounded-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                className="w-full mt-4 px-4 py-2.5 bg-linear-to-r from-red-500 to-red-600 text-white text-sm font-medium rounded-xl shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                             >
                                 <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

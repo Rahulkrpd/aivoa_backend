@@ -43,7 +43,18 @@ function App() {
             : <Register />
           }
         />
-        <Route path="/admin" element={<AdminDashboard />} />
+        <Route
+          path="/admin"
+          element={
+            token
+              ? (
+                JSON.parse(atob(token.split(".")[1])).role === "admin"
+                  ? <AdminDashboard />
+                  : <Navigate to="/" />
+              )
+              : <Navigate to="/login" />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
